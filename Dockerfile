@@ -20,7 +20,7 @@ RUN mkdir -p /etc/NAE && cp -f /opt/anaconda2/LICENSE.txt /etc/NAE/license.txt
 # Create the ml-suite Anaconda Virtual Environment...
 # see: https://github.com/Xilinx/ml-suite/blob/v1.0-ea/docs/tutorials/start-anaconda.md
 #RUN conda create -y --name ml-suite python=2.7 jupyter caffe pydot pydot-ng graphviz -c conda-forge && conda clean -y --all
-RUN conda create --name ml-suite python=2.7 numpy=1.14.5 x264=20131218 caffe pydot pydot-ng graphviz keras scikit-learn tqdm -c conda-forge
+RUN conda create -y --name ml-suite python=2.7 numpy=1.14.5 x264=20131218 caffe pydot pydot-ng graphviz keras scikit-learn tqdm -c conda-forge && conda clean -y --all
 
 # Deploy this repository into the container
 COPY --chown=nimbix:nimbix . /usr/src/ml-suite/
@@ -42,7 +42,7 @@ RUN ln -s /opt/anaconda2 ~/anaconda2 && bash /etc/skel/ml-suite/fix_caffe_opencv
 
 # motd and AppDef, URL override, and launcher for notebooks
 COPY JARVICE/motd /etc/motd
-COPY JARVICE/AppDef.json /etc/NAE/AppDef.json
+#COPY JARVICE/AppDef.json /etc/NAE/AppDef.json
 COPY JARVICE/url.txt /etc/NAE/url.txt
 COPY JARVICE/ml-notebooks /usr/local/bin/ml-notebooks
-RUN curl --fail -X POST -d @/etc/NAE/AppDef.json https://api.jarvice.com/jarvice/validate
+#RUN curl --fail -X POST -d @/etc/NAE/AppDef.json https://api.jarvice.com/jarvice/validate
